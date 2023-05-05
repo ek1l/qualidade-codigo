@@ -15,6 +15,12 @@
  * TODO: Refatorar para optional chaining
  * ! Esse exemplo não possui testes
  */
-if (usuario && usuario.endereco && usuario.endereco.bairro) {
-  console.log(usuario.endereco.bairro);
+// if (usuario && usuario.endereco && usuario.endereco.bairro) {
+//   console.log(usuario.endereco.bairro);
+// }
+
+
+const usuario = {
+  nome: 'asdasd',
 }
+console.log(usuario.endereco?.bairro?.subBairro)

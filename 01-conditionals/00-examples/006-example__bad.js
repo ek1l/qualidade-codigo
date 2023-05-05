@@ -12,8 +12,6 @@
  * ! Não possui testes
  */
 let desconto;
-if (preco > 500) {
-    desconto = 0.15;
-} else {
-    desconto = 0.1
+const verificarPreco = (preco) => {
+return preco > 500 ? desconto = 0.15 : desconto = 0.1
 }
