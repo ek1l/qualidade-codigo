@@ -22,14 +22,10 @@ const fruits = [
 ];
 
 function test() {
-  let isAllRed = true;
-
-  for (let f of fruits) {
-    if (!isAllRed) break;
-    isAllRed = f.color == "red";
-  }
-
-  return isAllRed;
+  const falseOrTrue = fruits.every(({color}) => {
+    return color === 'red'
+  })
+  return falseOrTrue
 }
 
 
