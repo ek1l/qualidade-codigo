@@ -1,36 +1,48 @@
 /**
- * 
+ *
  * Assim como no exemplo 008, aqui temos um caso comum
  * de condicional que pode ser substituído por objetos
- * 
+ *
  * TODO: Substituir condicionais por objeto
- * ? Esse script possui testes 
+ * ? Esse script possui testes
  */
 
-function updateUser(state, payload) {
-  return 'atualizando usuario';
-}
+// function updateUser(state, payload) {
+//   return "atualizando usuario";
+// }
 
-function createUser(state, payload) {
-  return 'criando usuario';
-}
+// function createUser(state, payload) {
 
-function selectUser(state, payload) {
-  return 'selecionando usuario';
-}
+//   return "criando usuario";
+// }
 
-function deleteUser(state, payload) {
-  return 'deletando usuario';
-}
+// function selectUser(state, payload) {
+//   return "selecionando usuario";
+// }
 
-export default function reducer(action, state) {
-  if (action.type === 'UPDATE_USER') {
-    return updateUser(state, action.payload);
-  } else if (action.type === 'CREATE_USER') {
-    return createUser(state, action.payload);
-  } else if (action.type === 'SELECT_USER') {
-    return selectUser(state, action.payload);
-  } else if (action.type === 'DELETE_USER') {
-    return deleteUser(state, action.payload);
-  }
+// function deleteUser(state, payload) {
+//   return "deletando usuario";
+// }
+
+// export default function reducer(action, state) {
+//   if (action.type === "UPDATE_USER") {
+//     return updateUser(state, action.payload);
+//   } else if (action.type === "CREATE_USER") {
+//     return createUser(state, action.payload);
+//   } else if (action.type === "SELECT_USER") {
+//     return selectUser(state, action.payload);
+//   } else if (action.type === "DELETE_USER") {
+//     return deleteUser(state, action.payload);
+//   }
+// }
+
+const testes = {
+  UPDATE_USER: "atualizando usuario",
+  CREATE_USER: "criando usuario",
+  SELECT_USER: "selecionando usuario",
+  DELETE_USER: "deletando usuario"
+};
+
+export default function reducer(action) {
+  return testes[action.type];
 }

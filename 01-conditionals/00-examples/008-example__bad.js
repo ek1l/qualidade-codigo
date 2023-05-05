@@ -9,12 +9,28 @@
  * ! Esse script não possui testes
  * 
  */
-function setAccType(accType) {
-  if (accType == "PLATINUM") {
-      return "Platinum Customer";
-  } else if (accType == "GOLD") {
-      return "Gold Customer";
-  } else if (accType == "SILVER") {
-      return "Silver Customer";
-  }
+// function setAccType(accType) {
+//   if (accType === "PLATINUM") {
+//       return "Platinum Customer";
+//   } else if (accType === "GOLD") {
+//       return "Gold Customer";
+//   } else if (accType === "SILVER") {
+//       return "Silver Customer";
+//   }
+// }
+
+
+
+const types = {
+    PLATINUM: 'Platinum Customer',
+    GOLD: 'Gold customer',
+    SILVER: 'Silver Customer'
 }
+
+
+function setAccType(accType) {
+    return types[accType]
+}
+
+
+console.log(setAccType('GOLD'))

@@ -11,7 +11,9 @@
  * TODO: Simplificar condicional reduzindo a complexidade
  * TODO: das verificações
  */
+const fruit = 'apple'
+const redFruits = ['apple', 'strawberry']
 
-if (fruit == 'apple' || fruit == 'strawberry') {
+if (redFruits.includes(fruit)) {
   console.log('red');
 }
