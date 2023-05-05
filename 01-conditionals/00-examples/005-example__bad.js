@@ -1,13 +1,4 @@
-/**
- * Exemplo de condicional gigante, fluxo complexo e aninhamento desnecessário.
- * 
- * O refatoramento pode ser feito em etapas, a primeira seria remover esse ninho
- * 
- * Depois, vamos observar um padrão semelhante ao 004-exemplo
- * 
- * TODO: remover condicional e função continar retornando mesmos resultados
- * ? Esse script possui testes
- */
+
 
 let value1864cmn = 1864;
 let value1746cmn = 1746;

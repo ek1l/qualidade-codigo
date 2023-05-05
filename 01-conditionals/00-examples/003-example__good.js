@@ -15,14 +15,28 @@
  * * none online => offline
  */
 
+function allFalse(arr) {
+  return arr.every((valor) => {
+    return !valor
+  })
+}
+
+
+function allTrue(arr) {
+  return arr.every((valor) => {
+    return valor
+  })
+}
+
+
 export default function getStatus(onlineArr, connectedArr) {
   let status;
-  if (onlineArr.includes) {
-    status = "Online";
-  } else if (onlineArr.includes) {
-    if (connectedArr) {
-      status = "connected";
-    } else if (connectedArr.includes) {
+  if (allFalse(onlineArr)) {
+    status = "Offline";
+  } else if (allTrue(onlineArr)) {
+    if (allFalse(connectedArr)) {
+      status = "Disconnected";
+    } else if (allTrue(connectedArr)) {
       status = "Connected";
     } else {
       status = "Partially disconnected";
