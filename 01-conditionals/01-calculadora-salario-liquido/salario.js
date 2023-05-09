@@ -19,48 +19,61 @@
   IRPF = (salario base * aliquota) - deducao
 */
 
-function calculaIRPF(slb, inss) {
-  const slbs = slb - inss;
-  if (slbs >= 1903.99 && slbs <= 2826.65) {
-    return (slbs * 0.075) - 142.80;
-  } else if (slbs > 2826.65 && slbs <= 3751.05) {
-    return (slbs * 0.15) - 354.8;
-  } else if (slbs > 3751.05 && slbs <= 4664.68) {
-    return (slbs * 0.225) - 636.13;
-  } else if (slbs > 4664.68){
-    return (slbs * 0.275) - 869.36;
+/**
+ * ! Code smells indentficados:
+ * - Função longa
+ * - //// Nomes de variáveis/constantes ruins
+ * - Magic number
+ * - Condicionais complexas
+ */
+
+function calculaIRPF(salarioBruto, descontoINSS) {
+  const salarioBase = salarioBruto - descontoINSS;
+  if (salarioBase >= 1903.99 && salarioBase <= 2826.65) {
+    return salarioBase * 0.075 - 142.8;
+  } else if (salarioBase > 2826.65 && salarioBase <= 3751.05) {
+    return salarioBase * 0.15 - 354.8;
+  } else if (salarioBase > 3751.05 && salarioBase <= 4664.68) {
+    return salarioBase * 0.225 - 636.13;
+  } else if (salarioBase > 4664.68) {
+    return salarioBase * 0.275 - 869.36;
   }
   return 0;
 }
 
-export default function calculaSalario(slb) {
-  // Descontando taxa INSS
-  let desconto = 0;
+function calculaINSS(salarioBruto) {
+  let descontoINSS = 0;
 
-  if (slb <= 1045) {
-    desconto = slb * 0.075;
-  } else if (slb > 1045 && slb <= 2089.60) {
-    desconto = (slb * 0.09) - 15.67;
-  } else if (slb > 2089.60 && slb <= 3134.40) {
-    desconto = (slb * 0.12) - 78.36;
-  } else if (slb > 3134.40 && slb <= 6101.06) {
-    desconto = (slb * 0.14) - 141.05;
+  if (salarioBruto <= 1045) {
+    descontoINSS = salarioBruto * 0.075;
+  } else if (salarioBruto > 1045 && salarioBruto <= 2089.6) {
+    descontoINSS = salarioBruto * 0.09 - 15.67;
+  } else if (salarioBruto > 2089.6 && salarioBruto <= 3134.4) {
+    descontoINSS = salarioBruto * 0.12 - 78.36;
+  } else if (salarioBruto > 3134.4 && salarioBruto <= 6101.06) {
+    descontoINSS = salarioBruto * 0.14 - 141.05;
   } else {
-    desconto = 713.10;
+    descontoINSS = 713.1;
   }
-
-  desconto = parseFloat(desconto.toFixed(2))
-
-  const irpf = parseFloat(calculaIRPF(slb, desconto).toFixed(2));
-
-  const slbs = slb - desconto;
-
-  let salarioLiquido = slbs - irpf;
-
-  return {
-    descontoINSS: desconto,
-    descontoIRPF: irpf,
-    liquido: parseFloat(salarioLiquido.toFixed(2))
-  };
+  return descontoINSS;
 }
 
+function formataNumero(numero) {
+  return parseFloat(numero.toFixed(2));
+}
+
+export default function calculaSalario(salarioBruto) {
+  const descontoINSS = formataNumero(calculaINSS(salarioBruto));
+
+  const descontoIRPF = formataNumero(calculaIRPF(salarioBruto, descontoINSS));
+
+  const salarioLiquido = formataNumero(
+    salarioBruto - descontoINSS - descontoIRPF
+  );
+
+  return {
+    descontoINSS: descontoINSS,
+    descontoIRPF: descontoIRPF,
+    liquido: salarioLiquido,
+  };
+}
