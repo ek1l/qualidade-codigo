@@ -50,12 +50,7 @@ const data = {
 };
 
 let posicao = 0;
-let total = data.pictures.length
-
-
-renderImage(data.pictures[posicao]);
-renderThumbnail(templateThumbnailList(data.pictures))
-
+let total = data.pictures.length;
 
 function renderThumbnail(htmlThumbnails) {
   document.getElementById("container-fotos-lista").innerHTML = htmlThumbnails;
@@ -84,21 +79,12 @@ function renderImage(photoName) {
   document.getElementById("img-principal").src = `fotos/${photoName}`;
 }
 
-
-
 function handleThumbnailClick(event) {
   event.preventDefault();
 
   posicao = parseInt(event.currentTarget.getAttribute("data-posicao"), 10);
-
-  renderImage(data.pictures[posicao]);
-  markArrows();
-  markThumbnail();
+  renderGallery()
 }
-
-
-
-
 
 function prevPosition(position) {
   return position <= 0 ? 0 : position - 1;
@@ -116,22 +102,21 @@ function handleArrowsClick(event) {
       ? prevPosition(posicao)
       : nextPosition(posicao, total);
 
-  renderImage(data.pictures[posicao]);
-
-  markArrows();
-  markThumbnail();
+      renderGallery()
 }
 
-const todasFotos = document.querySelectorAll(".foto-item");
+function bindEvent() {
+  const todasFotos = document.querySelectorAll(".foto-item");
 
-for (let i = 0; i < todasFotos.length; i++) {
-  todasFotos[i].addEventListener("click", handleThumbnailClick);
-}
+  for (let i = 0; i < todasFotos.length; i++) {
+    todasFotos[i].addEventListener("click", handleThumbnailClick);
+  }
 
-const botoes = document.querySelectorAll(".btn");
+  const botoes = document.querySelectorAll(".btn");
 
-for (let i = 0; i < botoes.length; i++) {
-  botoes[i].addEventListener("click", handleArrowsClick);
+  for (let i = 0; i < botoes.length; i++) {
+    botoes[i].addEventListener("click", handleArrowsClick);
+  }
 }
 
 function markArrows() {
@@ -158,5 +143,17 @@ function markThumbnail() {
 
   items[posicao].classList.add("border-primary");
 }
-markArrows();
-markThumbnail();
+
+const renderGallery = () => {
+  renderImage(data.pictures[posicao]);
+  markArrows();
+  markThumbnail();
+};
+
+function init() {
+  renderThumbnail(templateThumbnailList(data.pictures));
+  renderGallery();
+  bindEvent();
+}
+
+init();
