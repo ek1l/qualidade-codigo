@@ -52,6 +52,61 @@ const data = {
 let posicao = 0;
 let total = data.pictures.length;
 
+function GalleryState(configs = {}) {
+  const configsDefault = {
+    position: 0,
+    images: [],
+    ...configs,
+  };
+
+  const total = configsDefault.images.length;
+  const lastPosition = total - 1;
+  let position = configsDefault.position;
+
+  function prev() {
+    position = hasPrev() ? position - 1 : 0;
+  }
+
+  function next() {
+    position = hasNext() ? position + 1 : lastPosition;
+  }
+
+  function getPosition() {
+    return position;
+  }
+
+  function setPosition(pos) {
+    position = pos;
+  }
+
+  function getCurrentImage() {
+    return configsDefault.images[position];
+  }
+  function hasPrev() {
+    return position - 1 >= 0;
+  }
+  function hasNext() {
+    return position + 1 <= lastPosition;
+  }
+  return {
+    prev,
+    next,
+    getPosition,
+    getCurrentImage,
+    setPosition,
+    hasNext,
+    hasPrev,
+  };
+}
+
+const galleryState = GalleryState({
+  position: 0,
+  images: ["1.jpg", "2.jpg", "3.jpg", "4.jpg"],
+});
+
+console.log(galleryState.getCurrentImage());
+galleryState.next();
+
 function renderThumbnail(htmlThumbnails) {
   document.getElementById("container-fotos-lista").innerHTML = htmlThumbnails;
 }
@@ -83,7 +138,7 @@ function handleThumbnailClick(event) {
   event.preventDefault();
 
   posicao = parseInt(event.currentTarget.getAttribute("data-posicao"), 10);
-  renderGallery()
+  renderGallery();
 }
 
 function prevPosition(position) {
@@ -102,7 +157,7 @@ function handleArrowsClick(event) {
       ? prevPosition(posicao)
       : nextPosition(posicao, total);
 
-      renderGallery()
+  renderGallery();
 }
 
 function bindEvent() {
